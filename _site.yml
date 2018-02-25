@@ -5,5 +5,13 @@ navbar:
   left:
     - text: "Home"
       href: index.html
-    - text: "About"
-      href: about.html
+    - text: "Sobre mi"
+      href: Sobre_mi.html
+    - text: "Trabajos"
+      href: Trabajos.html
+    - text: "Densidades"
+      href: Densidades.html
+output:
+  html_document:
+    theme: sandstone
+    highlight: textmate
