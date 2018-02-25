@@ -1,0 +1,102 @@
+---
+title: 'Reconocimiento de voz'
+author: "Kevin Hidalgo,andres cabrera, Verónica Garzón"
+date: "6 de junio de 2017"
+output: 
+  html_document: 
+    highlight: haddock
+    theme: journal
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Librerias
+
+```{r librerias}
+library(tuneR);library(seewave)
+#ls("package:tuneR")
+#ls("package:seewave")
+```
+
+## Lectura
+```{r lectura}
+c1 <- readWave('cafe_Carlos.wav')
+c2 <- readWave('cafe_Paulina.wav')
+b1 <- readWave('murcielagoh.wav')
+b2 <- readWave('murcielagom.wav')
+
+```
+
+
+## Función 
+
+```{r funcion, message=FALSE, warning=FALSE}
+voz <- function(x,y){
+  library(seewave)
+  print('Resumen audio 1')
+  print(panorama(x))
+  print('Resumen audio 2')
+  print(panorama(y))
+  oscillo(x, title = T);oscillo(y, title = T)
+  op <- par(no.readonly = TRUE)
+  par(mfrow=c(2,1))
+  meanspec(x,type="l");title('Audio 1')#ama(c1) ,f=48000,wl=512
+  meanspec(y,type="l");title('Audio 2')#ama(c1) ,f=48000,wl=512
+  par(op)
+  op <- par(no.readonly = TRUE)
+  par(mfrow=c(2,1))
+  print(c('Valor maxímo y su localización, audio 1',crest(x, plot = TRUE)));title('Audio 1')# Valores maximos
+  print(c('Valor maxímo y su localización, audio 2',crest(y, plot = TRUE)));title('Audio 2')# Valores maximos
+  par(op)
+  p1 <- channel(x, which = 'left')
+  Wspecobjp1 <- periodogram(p1, width = 4096)
+  #return(Wspecobjp1)
+  #plot(Wspecobjp1)
+  q1<-mean(FFpure(Wspecobjp1))
+  print('Estimación media de frecuencias fundamentales audio 1')
+  print(q1)
+  p2 <- channel(y, which = 'left')
+  Wspecobjp2 <- periodogram(p2, width = 4096)
+  #return(Wspecobjp2)
+  #plot(Wspecobjp2)
+  op <- par(no.readonly = TRUE)
+  par(mfrow=c(2,1))
+  plot(Wspecobjp1, main='frecuencia audio 1')
+  plot(Wspecobjp2, main='frecuencia audio 2')
+  par(op)
+  q2<-mean(FFpure(Wspecobjp2))
+  print('Estimación media de frecuencias fundamentales audio 2')
+  print(q2)
+  if ((q1>100) & (q2>100)){
+ print('tanto el audio 1 como el audio 2 pertenecen al  sexo femenino')
+} else if((q1<100) & (q2<100)){
+ print('tanto el audio 1 como el audio 2 pertenecen al  sexo masculino')
+ } else if (q1<q2){
+  print('el audio 1 es de un hombre y el audio 2 es una mujer')
+ } else {
+   print('el audio 1 es de una mujer y el audio 2 es un hombre')
+ }
+}
+```
+
+
+## Prueba
+
+```{r prueba}
+voz(b1,c1)
+voz(c1,b2)
+voz(b2,c1)
+voz(c2,b1)
+voz(c2,b2)
+voz(b1,b2)
+```
+
+
+## Interpretación 
+
+En base al analisis gráfico se observa la frecuencia, la amplitud y otras caracteristicas de voces femeninas y voces masculinas, con aquella información se puede plantear una estrategia de analisis para la detección del género de la persona que esta generando el sonido, en el experimento se usa la palabra murcielago, ya que contiene todas las vocales, con el objetivo de expandir los limites de estudio en base a las caracteristicas sonoras de vocales tanto abiertas como cerradas y las diferencias que presentan en la fecuencia, y tambien se usa la frase "un buen café no necesita azúcar y un mal café no se la merece" con la restriccion de que el generador de este sonido es un programa, ya que el manejo de sonidos con gran duracion en R es complicado y si no se usa una gran capacidad de procesamiento genera algunas dificultades. En varias de las pruebas se demuestra que con la voz femenina, utilizada en la practica, la amplitud de la onda es mayor a comparacion a la del hombre. Se debe tener encuenta que la investigación utilizó un numero reducido de muestras y que hay variabilidad en los instrumentos donde se grabaron las voces.
+
+

@@ -1,0 +1,247 @@
+---
+title: "Simulacion funciones de probabilidad"
+author: "Andres Felipe Cabrera Angulo - C.C. 1039472348"
+date: "octubre de 2017"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#Simulación funciones de probabilidad discretas
+
+##Introducción
+
+En este informe se realiza la simulacion de las distribuciones discretas que se vieron en todo el transcurso de la materia de probabilidad, la metodologia para cada simulacion tiene caracteristicas similares, ya que en cada ejemplo se escoge un parametro de la funcion a utilizar y lo variamos entre valores que expresen un significativo cambio que se presentara en las graficas, para que las observaciones sean establecidas se fija la semilla = 9 para las funciones aleatorias.Para agregar el codigo que se observa es muy extenso debido a que se realizo de manera de estructura simple, pero existe la metodologia que lo resumiria completamente cada uno, por medio de la generacion de funciones que posee el sistema R.
+
+##Distribución bernoulli
+
+###Distribución bernoulli variando el numero de muestras
+
+
+Para comenzar usamos el esquema de la distribucion bernoulli en base a la funcion de R de la binomial, que consiste en fijar el parametro n=1 que significaria que el esperimento solo tiene una ejecucion. Se varia el numero de muestras para que la aproximacion del dato experimental sea cada vez mas reducida expresando una diferencia de la teorica casi nula, como lo podemos apreciar en estas graficas que logran su objetivo aproximadamente con las 100 muestras aleatorias.
+
+```{r}
+set.seed(9)
+par(mfrow=c(2,2), pty="m")
+hist(rbinom(0:10,1,0.5), breaks=c(-0.5:1.5), probability=TRUE,xlab="x", ylab="P(X=x)",
+     main="X~be(0.5) con 10 muestras", col="salmon",ylim=c(0,0.9))
+lines(0:10,dbinom(0:10,1,0.5),type = "h")
+lines(0:10,dbinom(0:10,1,0.5),type="p",pch=18)
+
+hist(rbinom(0:100,1,0.5), breaks=c(-0.5:1.5), probability=TRUE,xlab="x", ylab="P(X=x)",
+     main="X~be(0.5) con 100 muestras", col="salmon",ylim=c(0,0.7))
+lines(0:10,dbinom(0:10,1,0.5),type = "h")
+lines(0:10,dbinom(0:10,1,0.5),type="p",pch=18)
+
+hist(rbinom(0:1000,1,0.5), breaks=c(-0.5:1.5), probability=TRUE,xlab="x", ylab="P(X=x)",
+     main="X~be(0.5) con 1.000 muestras", col="salmon",ylim=c(0,0.6))
+lines(0:10,dbinom(0:10,1,0.5),type = "h")
+lines(0:10,dbinom(0:10,1,0.5),type="p",pch=18)
+
+hist(rbinom(0:10000,1,0.5), breaks=c(-0.5:1.5), probability=TRUE,xlab="x", ylab="P(X=x)",
+     main="X~be(0.5) con 10.000 muestras", col="salmon",ylim=c(0,0.6))
+lines(0:10,dbinom(0:10,1,0.5),type = "h")
+lines(0:10,dbinom(0:10,1,0.5),type="p",pch=18)
+```
+
+
+###Distribución bernoulli variando la probabilidad
+
+Este aspecto se agrego para ilustrar la transformacion que genera la alteracion de la probabilidad.
+
+```{r}
+set.seed(9)
+par(mfrow=c(2,2), pty="m")
+hist(rbinom(0:10000,1,0.5), breaks=c(-0.5:1.5), probability=TRUE,xlab="x", ylab="P(X=x)",
+     main="X~be(0.5)", col="tomato",ylim=c(0,0.9))
+lines(0:10,dbinom(0:10,1,0.5),type = "h")
+lines(0:10,dbinom(0:10,1,0.5),type="p",pch=18)
+
+hist(rbinom(0:10000,1,0.2), breaks=c(-0.5:1.5), probability=TRUE, xlab="x", ylab="P(X=x)",
+     main="X~be(0.2)", col="tomato",ylim=c(0,0.8))
+lines(0:10,dbinom(0:10,1,0.2),type = "h")
+lines(0:10,dbinom(0:10,1,0.2),type="p",pch=18)
+
+hist(rbinom(0:10000,1,0.7), breaks=c(-0.5:1.5), probability=TRUE,xlab="x", ylab="P(X=x)",
+     main="X~be(0.7)", col="tomato",ylim=c(0,0.8))
+lines(0:10,dbinom(0:10,1,0.7),type = "h")
+lines(0:10,dbinom(0:10,1,0.7),type="p",pch=18)
+```
+
+
+
+##Distribución binomial
+
+###Distribución binomial variando el la cantidad de muestras
+
+Retomando lo mencionado en el caso bernulli, la diferencia en esta distribucion es que la distribucion maneja varios "intentos", dependiendo del planteamiento que maneje el experimento dependera la probabilidad que se fija, de igual manera el parametro a variar es el numero de muestras con un resultado similar al ejercicio anterior.
+
+```{r}
+set.seed(9)
+par(mfrow=c(2,2), pty="m")
+hist(rbinom(0:10,5,0.5), breaks=c(-0.5:5.5), probability=TRUE,xlab="x", ylab="P(X=x)",
+     main="X~Bin(5, 0.5) con 10 muestras", col=51,ylim=c(0,0.7))
+lines(0:10,dbinom(0:10,5,0.5),type = "h")
+lines(0:10,dbinom(0:10,5,0.5),type="p",pch=18)
+
+hist(rbinom(0:100,5,0.5), breaks=c(-0.5:5.5), probability=TRUE,xlab="x", ylab="P(X=x)",
+     main="X~Bin(5, 0.5) con 100 muestras", col=51,ylim=c(0,0.4))
+lines(0:10,dbinom(0:10,5,0.5),type = "h")
+lines(0:10,dbinom(0:10,5,0.5),type="p",pch=18)
+
+hist(rbinom(0:1000,5,0.5), breaks=c(-0.5:5.5), probability=TRUE,xlab="x", ylab="P(X=x)",
+     main="X~Bin(5, 0.5) con 1.000 muestras", col=51,ylim=c(0,0.4))
+lines(0:10,dbinom(0:10,5,0.5),type = "h")
+lines(0:10,dbinom(0:10,5,0.5),type="p",pch=18)
+
+hist(rbinom(0:10000,5,0.5), breaks=c(-0.5:5.5), probability=TRUE,xlab="x", ylab="P(X=x)",
+     main="X~Bin(5, 0.5) con 10.000 muestras", col=51,ylim=c(0,0.4))
+lines(0:10,dbinom(0:10,5,0.5),type = "h")
+lines(0:10,dbinom(0:10,5,0.5),type="p",pch=18)
+```
+
+###Distribución binomial variando la probabilidad
+
+En la cuestion de la simetria de la funcion si se interviene el parametro de la probabilidad trasladaria la esperanza de la distribucion que es donde se localiza el dato de mayor probabilidad de la distribucion.
+
+
+```{r}
+set.seed(9)
+par(mfrow=c(1,3), pty="m")
+hist(rbinom(0:1000,5,0.5), breaks=c(-0.5:5.5), probability=TRUE,xlab="x", ylab="P(X=x)",
+     main="X~Bin(5, 0.5)", col=51,ylim=c(0,0.7))
+lines(0:10,dbinom(0:10,5,0.5),type = "h")
+lines(0:10,dbinom(0:10,5,0.5),type="p",pch=18)
+
+hist(rbinom(0:1000,5,0.2), breaks=c(-0.5:5.5), probability=TRUE,xlab="x", ylab="P(X=x)",
+     main="X~Bin(5, 0.2)", col=51,ylim=c(0,0.4))
+lines(0:10,dbinom(0:10,5,0.2),type = "h")
+lines(0:10,dbinom(0:10,5,0.2),type="p",pch=18)
+
+hist(rbinom(0:1000,5,0.7), breaks=c(-0.5:5.5), probability=TRUE,xlab="x", ylab="P(X=x)",
+     main="X~Bin(5, 0.7)", col=51,ylim=c(0,0.4))
+lines(0:10,dbinom(0:10,5,0.7),type = "h")
+lines(0:10,dbinom(0:10,5,0.7),type="p",pch=18)
+```
+
+## Distribución geométrica
+
+###Distribución geométrica variando la cantidad de muestras
+
+Con la distribucion geometrica se utiliza el cambio en la cantidad de muestras con las cuales un experimento aleatorio necesitaria repetirse para lograr un gran porcentaje de confiabilidad.Ademas se utiliza el mismo esquema para la binomial negativa, teniendo en cuenta que el objetivo de cada una utiliza planteamientos parecidos, pero con comportamientos totalmente distintos, pero se aclara que se realiza la simulacion de estas dos distribuciones bajo las misma circunstancias.
+```{r}
+set.seed(9)
+par(mfrow=c(2,2), pty="m")
+hist(rgeom(0:10,0.5), breaks=c(-0.5:10.5), probability=TRUE,xlab="x", ylab="P(X=x)",
+     main="X~geo(0.5) con 10 fracasos\n antes del exito", col=653,ylim=c(0,0.7),las =1,xlim = c(-0.5,10.5))
+lines(0:10,dgeom(0:10,0.5),type = "h")
+lines(0:10,dgeom(0:10,0.5),type="p",pch=18)
+
+hist(rgeom(0:100,0.5), breaks=c(-0.5:10.5), probability=TRUE,xlab="x", ylab="P(X=x)",
+     main="X~geo(0.5) con 100 fracasos\n antes del exito", col=653,ylim=c(0,0.55),las=1,xlim = c(-0.5,10.5))
+lines(0:10,dgeom(0:10,0.5),type = "h")
+lines(0:10,dgeom(0:10,0.5),type="p",pch=18)
+
+hist(rgeom(0:1000,0.5), breaks=c(-0.5:10.5), probability=TRUE,xlab="x", ylab="P(X=x)",
+     main="X~geo(0.5) con 1000 fracasos\n antes del exito", col=653,ylim=c(0,0.55),las=1,xlim = c(-0.5,10.5))
+lines(0:10,dgeom(0:10,0.5),type = "h")
+lines(0:10,dgeom(0:10,0.5),type="p",pch=18)
+
+hist(rgeom(0:10000,0.5), breaks=c(-0.5:20.5), probability=TRUE,xlab="x", ylab="P(X=x)",
+     main="X~geo(0.5) con 10000 fracasos\n antes del exito", col=653,ylim=c(0,0.55),las = 1,xlim = c(-0.5,10.5))
+lines(0:10,dgeom(0:10,0.5),type = "h")
+lines(0:10,dgeom(0:10,0.5),type="p",pch=18)
+```
+
+```{r}
+set.seed(9)
+par(mfrow=c(1,3), pty="m")
+hist(rgeom(0:1000,0.5), breaks=c(-0.5:10.5), probability=TRUE,           xlab="x", ylab="P(X=x)",main="X~geo(0.5)", col=653,ylim=c(0,0.7),xlim = c(-0.5,6))
+lines(0:10,dgeom(0:10,0.5),type = "h")
+lines(0:10,dgeom(0:10,0.5),type="p",pch=18)
+
+hist(rgeom(0:1000,0.2), breaks=c(-0.5:100.5), probability=TRUE,          xlab="x", ylab="P(X=x)",main="X~geo(0.2)", col=653,ylim=c(0,0.7),xlim = c(-0.5,6))
+lines(0:10,dgeom(0:10,0.2),type = "h")
+lines(0:10,dgeom(0:10,0.2),type="p",pch=18)
+
+hist(rgeom(0:1000,0.7), breaks=c(-0.5:100.5), probability=TRUE,          xlab="x", ylab="P(X=x)",main="X~geo(0.7)", col=653,ylim=c(0,0.7),xlim = c(-0.5,6))
+lines(0:10,dgeom(0:10,0.7),type = "h")
+lines(0:10,dgeom(0:10,0.7),type="p",pch=18)
+```
+
+##Distribución binomial negativa
+
+```{r}
+set.seed(9)
+par(mfrow=c(2,2), pty="m")
+rbinom5<- rnbinom(5,5,0.5)
+hist(rbinom5,probability = T, breaks=c(-0.5:(max(rbinom5)+0.5)),xlab="x", ylab="P(X=x)",main="X~BinN(5, 0.5) con 5 observaciones", col=435,ylim=c(0,0.4))
+lines(0:6,dnbinom(0:6,5,0.5),type = "h")
+lines(0:6,dnbinom(0:6,5,0.5),type="p",pch=18)
+
+rbinom10<- rnbinom(10,5,0.5)
+hist(rbinom10,freq = F, breaks=c(-0.5:(max(rbinom10)+0.5)),xlab="x", ylab="P(X=x)",main="X~BinN(5, 0.5) con 10 observaciones", col=435,ylim=c(0,0.4),xlim = c(-0.5,10.5))
+lines(0:10,dnbinom(0:10,5,0.5),type = "h")
+lines(0:10,dnbinom(0:10,5,0.5),type="p",pch=18)
+
+rbinom50<- rnbinom(50,5,0.5)
+hist(rbinom50,freq = F, breaks=c(-0.5:(max(rbinom50)+0.5)),xlab="x", ylab="P(X=x)",main="X~BinN(5, 0.5) con 50 observaciones", col=435,ylim=c(0,0.25),xlim = c(-0.5,15.5))
+lines(0:15,dnbinom(0:15,5,0.5),type = "h")
+lines(0:15,dnbinom(0:15,5,0.5),type="p",pch=18)
+
+rbinom100<- rnbinom(100,5,0.5)
+hist(rbinom100,freq = F, breaks=c(-0.5:(max(rbinom100)+0.5)),xlab="x", ylab="P(X=x)",main="X~BinN(5, 0.5)con 100 observaciones", col=435,ylim=c(0,0.2),xlim = c(-0.5,15.5))
+lines(0:15,dnbinom(0:15,5,0.5),type = "h")
+lines(0:15,dnbinom(0:15,5,0.5),type="p",pch=18)
+```
+
+##Distribución hipergéometrica
+
+Ahora con las distribuciones hipergeometrica y poisson como manejan parametros distintos de las distribuciones anteriores, experimentan cambios en el numero de muestras (en el caso hipergeometrico) y la cantidad de numeros aleatorios( para el caso poisson) pero se logra observar el mismo patron de descenso de la diferencia entre los valores teoricos y los valores experimentales por lo que ofrece una pista del entorno casi ideal que deberia manerjar las investigaciones con el fin de lograr altos niveles de precision.
+```{r}
+set.seed(9)
+par(mfrow=c(2,2), pty="m")
+hist(rhyper(0:10,820,500,5), breaks=c(-0.5:5.5), probability=TRUE,       xlab="x", ylab="P(X=x)",main="X~hypergeo(0.5) con\n 10 observaciones", col=674,ylim=c(0,0.7))
+lines(0:5,dhyper(0:5,820,500,5),type = "h")
+lines(0:5,dhyper(0:5,820,500,5),type="p",pch=18)
+
+hist(rhyper(0:100,820,500,5), breaks=c(-0.5:5.5), probability=TRUE,xlab="x", ylab="P(X=x)",main="X~hypergeo(0.5) con\n 100 observaciones", col=674,ylim=c(0,0.7))
+lines(0:5,dhyper(0:5,820,500,5),type = "h")
+lines(0:5,dhyper(0:5,820,500,5),type="p",pch=18)
+
+hist(rhyper(0:1000,820,500,5), breaks=c(-0.5:5.5), probability=TRUE,xlab="x", ylab="P(X=x)",main="X~hypergeo(0.5) con\n 1000 observaciones", col=674,ylim=c(0,0.7))
+lines(0:5,dhyper(0:5,820,500,5),type = "h")
+lines(0:5,dhyper(0:5,820,500,5),type="p",pch=18)
+
+hist(rhyper(0:10000,820,500,5), breaks=c(-0.5:5.5),probability=TRUE,xlab="x", ylab="P(X=x)",main="X~hypergeo(0.5) con\n 10000 observaciones", col=674,ylim=c(0,0.7))
+lines(0:5,dhyper(0:5,820,500,5),type = "h")
+lines(0:5,dhyper(0:5,820,500,5),type="p",pch=18)
+
+```
+
+
+
+#Distribución poisson
+```{r}
+set.seed(9)
+par(mfrow=c(2,2), pty="m")
+hist(rpois(10,4), breaks=c(-0.5:10.5), probability=TRUE, xlab="x", ylab="P(X=x)",main="1PDF de X~Pois(4)", col=975,ylim=c(0,0.4))
+lines(0:10,dpois(0:10,4),type = "h")
+lines(0:10,dpois(0:10,4),type="p",pch=18)
+
+hist(rpois(100,4), breaks=c(-0.5:100.5), probability=TRUE, xlab="x", ylab="P(X=x)",main="2PDF de X~Pois(4)", col=975,ylim=c(0,0.25), xlim=c(-0.5,10.5))
+lines(0:10,dpois(0:10,4),type = "h")
+lines(0:10,dpois(0:10,4),type="p",pch=18)
+
+hist(rpois(1000,4), breaks=c(-0.5:10.5), probability=TRUE, xlab="x", ylab="P(X=x)",main="3PDF de X~Pois(4)", col=975,ylim=c(0,0.25), xlim=c(-0.5,10.5))
+lines(0:10,dpois(0:10,4),type = "h")
+lines(0:10,dpois(0:10,4),type="p",pch=18)
+
+hist(rpois(10000,4), breaks=c(-0.5:100.5), probability=TRUE, xlab="x", ylab="P(X=x)",main="4PDF de X~Pois(4)", col=975,ylim=c(0,0.25), xlim=c(-0.5,10.5))
+lines(0:10,dpois(0:10,4),type = "h")
+lines(0:10,dpois(0:10,4),type="p",pch=18)
+```
