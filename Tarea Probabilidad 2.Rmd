@@ -1,0 +1,299 @@
+---
+title: "Tarea Probabilidad 2"
+author: "Andres Felipe Cabrera Angulo y Oliver Orley Rodriguez Berrocal"
+date: "septiembre de 2017"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+#Tarea Probabilidad N2
+
+##Ejercicio N1
+
+Sea $X$ una variable aleatoria que mide el espacio que ocupa un componente en $cm^3$, la función de densidad de densidad esta dada por:
+$$f(x) = \frac{630}{56}x^4(1-x^4) ; \quad 0<x<1$$
+
+##1) Gráfique $f(x)$:
+
+ 
+Podremos observar la gráfica mediante el siguiente código:
+
+
+
+```{r}
+#creamos una funcion en codigo R
+f <- function(x){
+  op <- (630/56)*(x^4)*(1-(x^4))
+  f <- ifelse(x>0 & x<1,op,0)  
+  return(f)
+}
+#este codigo grafica la funcion con los valores del 0 al 1
+curve(f, from = 0, to = 1,ylab = "",main="Funcion f(x)", xlab ="")
+```
+
+##2) Calculé el CDF(función de distribución acumulada):
+
+Con el objetivo de encontrar la funcián de distribución acumulada es necesario crear una función integral y definirla sobre los reales, dicha funcián se plantea de la siguiente manera:
+
+$$F(s)=\int\limits_0^s\frac{630}{56}x^4(1-x^4)dx$$
+Dado que R no puede trabajar con integrales indefinidas entonces el proceso de integración de la función acumulada se realizara por aparte.
+
+la función acumulada finalmente esta dada por la siguiente ecuación:
+
+$$F(s) = \frac{630}{56}(\frac{s^5}{5} - \frac{s^9}{9}) ; \quad 0<s<1$$
+
+
+```{r}
+#creamos una función en codigo R
+fa <- function(s){
+  op <- (630/56)*(((s^5)/5)-((s^9)/9))
+  fa <- ifelse(s>0 & s<1,op,0)  
+  return(fa)
+}
+
+#gráfico de la funcion acumulada F
+curve(fa, from = 0, to = 0.999999,ylab = "",main="Funcion F(s)", xlab ="")
+```
+
+
+
+##3)Calculé la Esperanza (o media) y ubíquela en el gráfico:
+
+Para encontrar la esperanza matematica de nuestra funcion de probabilidad, necesitamos resolver
+
+$$ \int\limits_0^1\frac{630}{56}x^5(1-x^4) $$
+```{r}
+#en este espacio se resuelve la integral anterior
+#primero generamos la nueva funcion que integraremos
+fesperanza <- function(x){
+  op <- (630/56)*(x^5)*(1-(x^4))
+  f <- ifelse(x>0 & x<1,op,0)  
+  return(f)
+}
+#gráfico de fesperanza
+curve(fesperanza, from = 0, to = 1,ylab = "",main="Funcion fesperanza", xlab ="")
+
+#esperanza
+E <- integrate(fesperanza,0,1)
+E
+```
+##4)Calculé la Varianza y ubíquela en el gráfico como término de error:
+
+Utilizamos la fórmula:
+
+$$Var(x) = E(x^2) - (E(x))^2$$
+
+como ya conocemos $E(x)$ para hallar la varianza necesitaremos $E(x^2)$
+```{r}
+fesperanza_2 <- function(x){
+  op <- (630/56)*(x^6)*(1-(x^4))
+  f <- ifelse(x>0 & x<1,op,0)  
+  return(f)
+}
+```
+```{r}
+#esperanza del cuadrado de x
+E_2 <- integrate(fesperanza_2,0,1)
+E_2
+```
+
+
+```{r}
+#varianza
+Varianza <- E_2$value - (E$value)^2
+Varianza
+rangoerror <- c(E$value - Varianza,E$value + Varianza)
+rangoerror
+```
+
+
+Para agregar la variaza como termino de error, tomaremos el dato esperado y le 
+sumaremos y restaremos la varianza al valor de la esperanza. 
+
+
+
+```{r}
+require(ggplot2)
+x <- seq(0,1,0.005)
+y <- f(x)
+df <- data.frame(x,y)
+ggplot(df,aes(x)) + 
+  geom_line(aes(y = y)) +
+  geom_vline(xintercept = rangoerror[1], linetype = "longdash") +
+  geom_vline(xintercept = rangoerror[2], linetype = "longdash") +
+  geom_point(aes(y = f(E$value),x = E$value), size = 3, color = "blue")
+  
+
+```
+
+
+
+##5)  Halle P(0.2 < x < 0.8)
+
+El proceso para resolver este punto es solamente usar los límites de la desigualdad como los límites de la integral $\int\limits_{0.2}^{0.8}\frac{630}{56}x^4(1-x^4)dx$ o en su defecto realizar la $F(0.8)-F(0.2)$
+
+
+```{r}
+#este codigo resuelve la integral planteada
+
+integrate(f,0.2,0.8)
+```
+
+
+
+
+
+
+
+
+
+
+##Ejercicio N2
+
+Una compañia de tecnologia fabrica espejos circulares para telescopios espaciales. El radio en pulgadas es una variable aleatoria denotada $r$ con función de densidad de probabilidad:
+
+$$g(r) = \begin{cases}
+\frac{24}{11}(2r-r^2);\quad 1<r<3/2\\
+0 \quad \text {en o.c}
+\end{cases}$$
+
+Para que los espejos sean ubicados sin complicaciones su área dada por $\Pi r^2$ no debe superar las 6.5 pulgadas del diametro.
+
+
+###1)Verificar si es una función de densidad de probabilidad
+
+Para verificar la funcion se debe cumplir la igualdad:
+
+$$ \int\limits_1^\frac{3}{2}\frac{24}{11}(2r-r^2)dr = 1 $$
+```{r}
+#funcion
+g <- function(r){
+  op <- (24/11)*(2*r-(r^2))
+  g <- ifelse(r>0 & r<(3/2),op,0)  
+  return(g)
+}
+
+integrate(g,1,3/2)
+```
+
+##2)Gráfique pdf
+```{r}
+#grafica de la funcion
+curve(g, from = 1, to = 1.49999,ylab = "",main="Funcion g(r)", xlab ="")
+```
+
+##3)Función de densidad acumulada:
+
+Con el objetivo de encontrar la función de probabilidad acumulada es necesario crear una función integral y definirla sobre los reales, dicha función se plantea de la siguiente manera:
+
+$$ F(t)=\int\limits_1^t\frac{24}{11}(2r-r^2)dr$$
+Dado que R no puede trabajar con integrales indefinidas entonces la solución  de la función acumulada se realizara por aparte.
+
+
+la función acumulada finalmente esta dada por la siguiente ecuación:
+
+$$F(t) = \frac{24}{11}(t^2-\frac{t^3}{3} - \frac{1}{3}) ; \quad 1<s<3/2$$
+
+
+```{r}
+#creamos una funcion en codigo R
+fb <- function(t){
+  op <- (24/11)*((t^2)-((t^3)/3)-(1/3))
+  fb <- ifelse(t>1 & t<3/2,op,0)  
+  return(fb)
+}
+
+#grafico de la funcion acumulada F
+curve(fb, from = 1.00001, to = 1.499999,ylab = "",main="Funcion F(t)", xlab ="")
+```
+
+##4) Halle el área esperada de los espejos:
+
+
+Con el objetivo de encontrar el area esperada de nuestra distribución de probabilidad hay que tener encuenta que si nombramos $A(r)=\pi r^2$ como la funcion del area en terminos del radio, estaremos generando la ecuacion de $E(A(r))$ para lograr lo planteado.
+
+Entonces el esquema de la esperanza queda expresado de la siguiente manera:
+
+$$E(A(r))= \int\limits_1^\frac{3}{2}\frac{24}{11}\pi r^2(2r-r^2)dr  $$
+```{r}
+#en este espacio se resuelve la integral anterior
+#primero generamos la nueva funcion que integraremos
+gesperanzaA <- function(r){
+  op <- (24/11)*(pi*(r^2))*(2*r-(r^2))
+  g <- ifelse(r>1 & r<3/2,op,0)  
+  return(g)
+}
+
+
+#esperanza del area
+Earea <- integrate(gesperanzaA,1,3/2)
+Earea
+```
+
+##5)Halle la incertidumbre del área de los espejos.
+
+En este punto es necesario encontrar la esperanza y varianza de $g(r)$, para generar el intervalo de incertidumbre con respecto a estas dos valores, para aclarar el rango de incertidumbre se extiende entre $(E(r) - VAR(r),E(r) + VAR(r))$
+```{r}
+#primero generamos la nueva funcion que integraremos
+gesperanza <- function(r){
+  op <- (24/11)*(2*r-(r^2))*r
+  g <- ifelse(r>1 & r<1.5,op,0)  
+  return(g)
+}
+
+#esperanza
+Eg <- integrate(gesperanza,1,1.5)
+Eg
+
+#esperanza de r^2
+gesperanza_2 <- function(r){
+  op <- (24/11)*(2*r-(r^2))*(r^2)
+  g <- ifelse(r>1 & r<1.5,op,0)  
+  return(g)
+}
+
+#esperanza
+Eg_2 <- integrate(gesperanza_2,1,1.5)
+Eg_2
+
+#Varianza
+
+varianzag <- Eg_2$value - (Eg$value)^2
+
+
+#incertidumbre
+
+rangoerrorg <- c(Eg$value - varianzag, Eg$value + varianzag)
+#gr?fico
+require(ggplot2)
+r <- seq(1,1.4999,0.005)
+y <- g(r)
+dg <- data.frame(r,y)
+ggplot(dg,aes(r)) + 
+  geom_line(aes(y = y)) +
+  geom_vline(xintercept = rangoerrorg[1], linetype = "longdash") +
+  geom_vline(xintercept = rangoerrorg[2], linetype = "longdash") +
+  geom_point(aes(y = g(Eg$value),x = Eg$value), size = 3, color = "red") 
+  
+
+```
+
+##6)Encuentre la probabilidad de que el área no supere 6,5 pulgadas
+
+Para la realizacion de este punto, hay que analizar que lo que se pide es el area pero nuestra funcion esta en terminos del radio, entonces se debe despejar la variable $r$ de la siguiente igualdad $\pi r^2 = 6,5$ para usarla en la funcion de probabilidad $G(r)$
+
+despejando la ecuacion se encuentra que $r = \frac{\sqrt{26\pi}}{2\pi}$ y como consecuaencia se resuelve $G(r<\frac{\sqrt{26\pi}}{2\pi})$ con el proceso de integracion conocido
+
+$$\int\limits_1^\frac{\sqrt{26\pi}}{2\pi}\frac{24}{11}(2r-r^2)dr$$
+```{r}
+#aqui se resuelve la integral anterior
+integrate(g,1,((sqrt(26*pi))/(2*pi)))
+```
+
+
+
+
