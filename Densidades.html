@@ -204,7 +204,32 @@ $(document).ready(function () {
 </div>
 
 
+<p>En esta sección de la página web encontraremos un ejemplo sencillo del uso de las densidades de una determinada base de datos, y generaremos algunas graficas usando principalmente el paquete de graficacion <strong>GGplot</strong>.</p>
+<p>Para este ejmplo se utiliza la base de datos <code>Cars93</code> que es una seleccion aleatoria de automoviles realizada en el año 1993, la base de datos tiene 93 observaciones y 27 variables, nosotros solo utilizaremos las variables <code>Price</code> ,<code>EngineSize</code> y <code>Horsepower</code>.</p>
+<p>Como primer paso se debe cargar la base de datos con el uso del paquete <code>MASS</code> y se seleccionan las variabres a estudiar.</p>
+<pre class="r"><code>require(MASS)
+Cars93[c(&#39;Price&#39;,&#39;EngineSize&#39;,&#39;Horsepower&#39;)]</code></pre>
+<p>Para continuar se debe llamar el paquete de graficacion ggplot2 para generar las graficas de curvas de densidad requeridas, para mayor comodidad cree una función llamada <code>densitygenerador</code>, que es una función basica que solo necesita de dos parametros, una base de datos.</p>
+<pre class="r"><code>library(ggplot2)
 
+densitygenerador &lt;- function(base,variable){
+
+g1 &lt;- ggplot(base, aes(x = base$variable))
+g1 + geom_line(stat = &quot;density&quot;) + ggtitle(&quot;Densidad&quot;) + theme(plot.title = element_text(hjust = 0.5))+xlab(&quot;&quot;)
+}
+
+densitygenerador(Cars93,Price)
+densitygenerador(Cars93,EngineSize)
+densitygenerador(Cars93,Horsepower)</code></pre>
+<p><img src="Densidades_files/figure-html/unnamed-chunk-3-1.png" width="672" /><img src="Densidades_files/figure-html/unnamed-chunk-3-2.png" width="672" /><img src="Densidades_files/figure-html/unnamed-chunk-3-3.png" width="672" /></p>
+<br>
+<hr>
+<p>
+<center>
+Copyright © 2018, webpage made with Rmarkdown.
+</center>
+</p>
+<hr>
 
 
 

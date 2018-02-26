@@ -2,3 +2,44 @@
 title: "Trabajos"
 ---
 
+En esta sección de la  página se exhibe algunos proyectos realizados durante el desarrollo de mi carrera estadistica. 
+
+
+[Manejo de bases de datos](https://github.com/afcabreraa/afcabreraa.github.io/blob/master/trabajo%20extra%20manejo%20de%20bases%20de%20datos.R)
+
+[Simulación distribuciones de probabilidad para variables continuas](https://github.com/afcabreraa/afcabreraa.github.io/blob/master/simulacion_continuas.Rmd)
+
+[Simulación distribuciónes de probabilidad para variables discretas](https://github.com/afcabreraa/afcabreraa.github.io/blob/master/Simulacion%20funciones%20de%20probabilidad.Rmd)
+
+[Analisis de sonido con R](https://github.com/afcabreraa/afcabreraa.github.io/blob/master/2.Rmd)
+
+[función en dependencia de una base de datos especifica](https://github.com/afcabreraa/afcabreraa.github.io/blob/master/Taller_1.Rmd)
+
+[Ejercicio básico de probabilidad](https://github.com/afcabreraa/afcabreraa.github.io/blob/master/Tarea%20Probabilidad%202.Rmd)
+
+[Interpolación de mapa de ruido de la Univerdidad Nacional](https://github.com/afcabreraa/afcabreraa.github.io/blob/master/mapa_ruido_total.R)
+
+[analisis de distribución de probabilidad de los niveles de ruido en el Ágora](https://github.com/afcabreraa/afcabreraa.github.io/blob/master/Trabajo%20Final%20Jefferson.Rmd)
+
+[Gráfica básica en R](https://github.com/afcabreraa/afcabreraa.github.io/blob/master/Guion_hurto_motocicletas_bogota.R)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<hr>
+<p><center>Copyright &copy; 2018, webpage made with Rmarkdown.</center></p>
+<hr>

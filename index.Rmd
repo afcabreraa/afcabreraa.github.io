@@ -1,5 +1,26 @@
 ---
-title: "My Website"
+title: ""
 ---
 
-##Hola a todos bienvenidos a mi página.
+#*"El único hombre que no se equivoca es el que nunca hace nada"*
+#                                      **Johann Wolfgang von Goethe**
+
+
+##Bienvenidos a mi página.
+
+<div style="width:1500px; height=300px">
+![](C:\Users\ANDRES FELIPE\Pictures\camino cerro de quitasol.jpeg)
+</div>
+
+
+
+
+
+
+
+
+
+<br>
+<hr>
+<p><center>Copyright &copy; 2018, webpage made with Rmarkdown.</center></p>
+<hr>
