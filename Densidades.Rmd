@@ -2,6 +2,11 @@
 title: "Densidades"
 ---
 
+```{r, echo=FALSE}
+require(MASS)
+```
+
+
 En esta sección de la página web encontraremos un ejemplo sencillo del uso de las densidades de una determinada base de datos, y generaremos algunas graficas usando principalmente el paquete de graficacion **GGplot**.
 
 Para este ejmplo se utiliza la base de datos `Cars93` que es una seleccion aleatoria de automoviles realizada en el año 1993, la base de datos tiene `r nrow(Cars93)` observaciones y `r ncol(Cars93)` variables, nosotros solo utilizaremos las variables `Price` ,`EngineSize` y `Horsepower`.

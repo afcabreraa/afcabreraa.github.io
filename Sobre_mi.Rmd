@@ -17,7 +17,7 @@ En cuanto a mis habilidades y competencias, manejo un nivel  intermedio de instr
 
 <center>
 <div style="width:200px; height=200px">
-![](C:\Users\ANDRES FELIPE\Pictures\foto personal.jpeg)
+![](foto personal.jpeg)
 </div>
 </center>
 

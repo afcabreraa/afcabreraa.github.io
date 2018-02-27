@@ -4,14 +4,25 @@ navbar:
   title: "My Website"
   left:
     - text: "Home"
+      icon: fa-home
       href: index.html
     - text: "Sobre mi"
+      icon: fa-child
       href: Sobre_mi.html
     - text: "Trabajos"
+      icon: fa-folder
       href: Trabajos.html
     - text: "Densidades"
+      icon: fa-line-chart
       href: Densidades.html
+  right:
+    - icon: fa-github
+      href: https://github.com/afcabreraa
+    - icon: fa-facebook-square
+      href: https://www.facebook.com/andresfelipe.cabreraangulo
+    - icon: fa-instagram
+      href: https://www.instagram.com/andrescabrera_98/
 output:
   html_document:
-    theme: sandstone
-    highlight: textmate
+    theme: flatly
+    highlight: kate

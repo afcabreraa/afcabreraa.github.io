@@ -3,13 +3,17 @@ title: ""
 ---
 
 #*"El único hombre que no se equivoca es el que nunca hace nada"*
-#                                      **Johann Wolfgang von Goethe**
+<div align="right">
+<i>Johann Wolfgang von Goethe</i>
+</div>
 
-
+<div align="center">
 ##Bienvenidos a mi página.
+</div>
+
 
 <div style="width:1500px; height=300px">
-![](C:\Users\ANDRES FELIPE\Pictures\camino cerro de quitasol.jpeg)
+![](camino cerro de quitasol.jpeg)
 </div>
 
 
